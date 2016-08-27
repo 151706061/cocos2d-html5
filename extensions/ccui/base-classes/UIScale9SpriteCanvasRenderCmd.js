@@ -55,7 +55,7 @@
             node._positionsAreDirty = false;
         }
 
-        cc.Node.CanvasRenderCmd.prototype.visit.call(this, parentCmd);
+        this.originVisit(parentCmd);
     };
 
     proto.transform = function(parentCmd){
@@ -120,7 +120,7 @@
             this._cacheScale9Sprite();
             this._dirtyFlag = this._dirtyFlag & flags.cacheDirty ^ this._dirtyFlag;
         }
-    }
+    };
 
     proto._cacheScale9Sprite = function() {
         var node = this._node;
@@ -181,6 +181,7 @@
 
         if(!this._cacheSprite.getParent())
             node.addChild(this._cacheSprite, -1);
+        this._cacheSprite._renderCmd._updateColor();
     };
 
     proto.setState = function(state){
